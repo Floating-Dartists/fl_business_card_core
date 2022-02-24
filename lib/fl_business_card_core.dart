@@ -1,7 +1,4 @@
 library fl_business_card_core;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/models/twitter_pattern.dart';
+export 'src/models/url_pattern.dart';

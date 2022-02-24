@@ -1,4 +1,4 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lint/analysis_options_package.yaml
 
 analyzer:
   exclude:
@@ -21,6 +21,7 @@ analyzer:
     unnecessary_null_aware_assignments: warning
     use_string_buffers: warning
     avoid_unnecessary_containers: warning
+    always_use_package_imports: ignore
 
 linter:
   rules:
@@ -55,5 +56,4 @@ linter:
     - use_if_null_to_convert_nulls_to_bools
     - use_string_buffers
     - avoid_unnecessary_containers
-    - use_build_context_synchronously
     
