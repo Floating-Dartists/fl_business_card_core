@@ -92,7 +92,7 @@ abstract class UrlParser extends Equatable {
   }
 
   Map<String, String> replaceUserInQueryParameters(String user) {
-    final replacedQueryParameters = queryParameters;
+    final replacedQueryParameters = queryParameters.map(MapEntry.new);
     for (int i = 0; i < replacedQueryParameters.length; i++) {
       replacedQueryParameters[replacedQueryParameters.keys.elementAt(i)] =
           replacedQueryParameters[replacedQueryParameters.keys.elementAt(i)]!
