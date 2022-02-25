@@ -13,6 +13,7 @@ dependencies:
   meta: ^1.7.0
 
 dev_dependencies:
+  coverage: ^1.1.0
   lint: ^1.8.2
   mockito: ^5.1.0
   remove_from_coverage: ^2.0.0
