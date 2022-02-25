@@ -1,8 +1,8 @@
-class ParseException implements Exception {
+class UrlParseException implements Exception {
   final String parseType;
   final String message;
 
-  ParseException({
+  UrlParseException({
     required this.parseType,
     required this.message,
   });

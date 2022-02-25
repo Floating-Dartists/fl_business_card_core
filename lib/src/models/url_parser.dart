@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'parse_exceptions.dart';
+import 'url_parse_exceptions.dart';
 
 export 'url_parser/custom_parser.dart';
 export 'url_parser/github_parser.dart';
@@ -103,58 +103,47 @@ abstract class UrlParser extends Equatable {
     //     .map((key, value) => MapEntry(key, value.replaceAll('{user}', user)));
   }
 
+  bool isValid(Uri uri) => isValidUrl(uri) == null;
+
   @mustCallSuper
-  bool isValid(Uri uri) {
+  String? isValidUrl(Uri uri) {
     if (!schemes.contains(uri.scheme)) {
-      throw ParseException(
-        parseType: service,
-        message:
-            "The scheme of ${uri.toString()} is not accepted for this service.",
-      );
+      return "The scheme of ${uri.toString()} is not accepted for this service.";
     }
     if (hosts[0] != "*" && !hosts.contains(uri.host)) {
       /// If it comes to this, we must still account for the case where the
       /// username IS *part* of the host, such as for some Medium users.
       if (hosts[0].contains("{user}") &&
           (hosts.length < 2 || !uri.host.contains(hosts[0]))) {
-        throw ParseException(
-          parseType: service,
-          message:
-              "The host of ${uri.toString()} is not accepted for this service.",
-        );
+        return "The host of ${uri.toString()} is not accepted for this service.";
       }
     }
-    return true;
+    return null;
   }
 
   String recoverUser(String uriString) {
-    try {
-      final uri = Uri.tryParse(uriString);
-      if (uri == null) {
-        return uriString;
-      }
-      isValid(uri);
-      final indexInPathSegment =
-          pathSegments.indexWhere((element) => element == '{user}');
-      if (indexInPathSegment != -1 &&
-          uri.pathSegments.length > indexInPathSegment) {
-        return uri.pathSegments[indexInPathSegment];
-      }
-      final indexInQuery = List<String>.from(queryParameters.values)
-          .indexWhere((element) => element == '{user}');
-      if (indexInQuery != -1 && uri.queryParameters.length > indexInQuery) {
-        return uri.queryParameters.values.toList()[indexInQuery];
-      }
-      if (hosts.length >= 2 && hosts[1].contains("{user}")) {
-        return uri.host.split(".").first;
-      }
-      throw ParseException(
-        parseType: service,
-        message: "Couldn't find user in URI",
-      );
-    } on ParseException {
-      rethrow;
+    final uri = Uri.tryParse(uriString);
+    if (uri == null || !isValid(uri)) {
+      return uriString;
     }
+    final indexInPathSegment =
+        pathSegments.indexWhere((element) => element == '{user}');
+    if (indexInPathSegment != -1 &&
+        uri.pathSegments.length > indexInPathSegment) {
+      return uri.pathSegments[indexInPathSegment];
+    }
+    final indexInQuery = List<String>.from(queryParameters.values)
+        .indexWhere((element) => element == '{user}');
+    if (indexInQuery != -1 && uri.queryParameters.length > indexInQuery) {
+      return uri.queryParameters.values.toList()[indexInQuery];
+    }
+    if (hosts.length >= 2 && hosts[1].contains("{user}")) {
+      return uri.host.split(".").first;
+    }
+    throw UrlParseException(
+      parseType: service,
+      message: "Couldn't find user in URI",
+    );
   }
 
   String recreateUri(String user) {

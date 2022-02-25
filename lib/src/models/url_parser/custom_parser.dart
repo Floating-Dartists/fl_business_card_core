@@ -1,5 +1,5 @@
 import '../../../fl_business_card_core.dart';
-import '../parse_exceptions.dart';
+import '../url_parse_exceptions.dart';
 
 class CustomParser extends UrlParser {
   const CustomParser()
@@ -13,14 +13,14 @@ class CustomParser extends UrlParser {
     try {
       final uri = Uri.tryParse(uriString);
       if (uri == null) {
-        throw ParseException(
+        throw UrlParseException(
           parseType: service,
           message: "Invalid Custom URL",
         );
       }
       isValid(uri);
       return "${uri.host}${uri.path}${uri.query}${uri.fragment}";
-    } on ParseException {
+    } on UrlParseException {
       rethrow;
     }
   }
@@ -34,7 +34,7 @@ class CustomParser extends UrlParser {
   String recreateUri(String user) {
     final uri = Uri.tryParse(user);
     if (uri == null) {
-      throw ParseException(
+      throw UrlParseException(
         parseType: service,
         message: "Invalid Custom URL",
       );

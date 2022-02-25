@@ -1,6 +1,6 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show GitlabParser;
-import 'package:fl_business_card_core/src/models/parse_exceptions.dart';
+import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -19,7 +19,7 @@ void main() {
         expect(
           () => const GitlabParser().isValid(Uri.parse(tInvalidUrl)),
           // const CustomParser().isValid(Uri.parse(tInvalidUrl)),
-          throwsA(isA<ParseException>()),
+          throwsA(isA<UrlParseException>()),
         );
       });
     });
@@ -29,13 +29,6 @@ void main() {
         expect(
           const GitlabParser().recoverUser(tValidUrl),
           tvalidUsername,
-        );
-      });
-
-      test('An invalid Gitlab Url should throw a ParseException', () {
-        expect(
-          () => const GitlabParser().recoverUser(tInvalidUrl),
-          throwsA(const TypeMatcher<ParseException>()),
         );
       });
     });

@@ -1,6 +1,6 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show GithubParser;
-import 'package:fl_business_card_core/src/models/parse_exceptions.dart';
+import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -17,9 +17,8 @@ void main() {
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          () => const GithubParser().isValid(Uri.parse(tInvalidUrl)),
-          // const CustomParser().isValid(Uri.parse(tInvalidUrl)),
-          throwsA(isA<ParseException>()),
+          const GithubParser().isValid(Uri.parse(tInvalidUrl)),
+          false,
         );
       });
     });
@@ -29,13 +28,6 @@ void main() {
         expect(
           const GithubParser().recoverUser(tValidUrl),
           tvalidUsername,
-        );
-      });
-
-      test('An invalid Github Url should throw a ParseException', () {
-        expect(
-          () => const GithubParser().recoverUser(tInvalidUrl),
-          throwsA(const TypeMatcher<ParseException>()),
         );
       });
     });

@@ -1,4 +1,4 @@
-import '../parse_exceptions.dart';
+import '../url_parse_exceptions.dart';
 import '../url_parser.dart';
 
 class GithubParser extends UrlParser {
@@ -17,15 +17,11 @@ class GithubParser extends UrlParser {
   /// * It has strictly a single path segment (which is the Github Username).
   /// (Do note it also works with GitHub organizations !)
   @override
-  bool isValid(Uri uri) {
-    super.isValid(uri);
+  String? isValidUrl(Uri uri) {
     final path = uri.pathSegments;
     if (path.length != 1) {
-      throw ParseException(
-        parseType: service,
-        message: "More than one path segment",
-      );
+      return "More than one path segment";
     }
-    return true;
+    return super.isValidUrl(uri);
   }
 }

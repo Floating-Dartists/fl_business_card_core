@@ -1,4 +1,4 @@
-import '../parse_exceptions.dart';
+import '../url_parse_exceptions.dart';
 import '../url_parser.dart';
 
 class LinkedInParser extends UrlParser {
@@ -16,15 +16,11 @@ class LinkedInParser extends UrlParser {
   ///
   /// * It has strictly two path segments ("in", then the username).
   @override
-  bool isValid(Uri uri) {
-    super.isValid(uri);
+  String? isValidUrl(Uri uri) {
     final path = uri.pathSegments;
     if (path.length != 2) {
-      throw ParseException(
-        parseType: service,
-        message: "Incorrect number of path segments",
-      );
+      return "Incorrect number of path segments";
     }
-    return true;
+    return super.isValidUrl(uri);
   }
 }

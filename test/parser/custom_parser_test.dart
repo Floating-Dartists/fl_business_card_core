@@ -1,6 +1,6 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show CustomParser;
-import 'package:fl_business_card_core/src/models/parse_exceptions.dart';
+import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -18,9 +18,8 @@ void main() {
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          () => const CustomParser().isValid(Uri.parse(tInvalidUrl)),
-          // const CustomParser().isValid(Uri.parse(tInvalidUrl)),
-          throwsA(isA<ParseException>()),
+          const CustomParser().isValid(Uri.parse(tInvalidUrl)),
+          false,
         );
       });
     });
@@ -30,13 +29,6 @@ void main() {
         expect(
           const CustomParser().recoverUser(tValidUrl),
           tvalidUsername,
-        );
-      });
-
-      test('An invalid custom URL should throw a ParseException', () {
-        expect(
-          () => const CustomParser().recoverUser(tInvalidUrl),
-          throwsA(const TypeMatcher<ParseException>()),
         );
       });
     });

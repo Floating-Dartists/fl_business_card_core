@@ -1,6 +1,6 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show MediumParser;
-import 'package:fl_business_card_core/src/models/parse_exceptions.dart';
+import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -22,9 +22,8 @@ void main() {
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          () => const MediumParser().isValid(Uri.parse(tInvalidUrl)),
-          // const CustomParser().isValid(Uri.parse(tInvalidUrl)),
-          throwsA(isA<ParseException>()),
+          const MediumParser().isValid(Uri.parse(tInvalidUrl)),
+          false,
         );
       });
     });
@@ -41,13 +40,6 @@ void main() {
         expect(
           const MediumParser().recoverUser(tValidUrl2),
           tvalidUsername2,
-        );
-      });
-
-      test('An invalid Medium Url should throw a ParseException', () {
-        expect(
-          () => const MediumParser().recoverUser(tInvalidUrl),
-          throwsA(const TypeMatcher<ParseException>()),
         );
       });
     });
