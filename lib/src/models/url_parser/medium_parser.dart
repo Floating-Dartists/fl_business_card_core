@@ -6,8 +6,8 @@ class MediumParser extends UrlParser {
   /// for those who have, medium.com/@{user} will redirect
   /// to their {user}.medium.com page.
   const MediumParser()
+      // coverage:ignore-line
       : super(
-          // coverage:ignore-line
           service: "Medium",
           hosts: const ["medium.com", "{user}.medium.com", "www.medium.com"],
           pathSegments: const ["{user}"],

@@ -2,8 +2,8 @@ import 'url_parser.dart';
 
 class GithubParser extends UrlParser {
   const GithubParser()
+      // coverage:ignore-line
       : super(
-          // coverage:ignore-line
           service: "GitHub",
           hosts: const ["github.com", "www.github.com"],
           pathSegments: const ["{user}"],

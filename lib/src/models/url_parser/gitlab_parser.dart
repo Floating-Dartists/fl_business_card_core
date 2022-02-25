@@ -2,8 +2,8 @@ import 'url_parser.dart';
 
 class GitlabParser extends UrlParser {
   const GitlabParser()
+      // coverage:ignore-line
       : super(
-          // coverage:ignore-line
           service: "GitLab",
           hosts: const ["gitlab.com", "www.gitlab.com"],
           pathSegments: const ["{user}"],
