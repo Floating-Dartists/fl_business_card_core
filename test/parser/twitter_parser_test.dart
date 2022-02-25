@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('TwitterParser', () {
+    const parser = TwitterParser();
+
     const tValidUrl = 'https://twitter.com/ABC38_';
     const tInvalidUrl = 'https://twittercom/status/ABC38_';
 
@@ -11,12 +13,12 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const TwitterParser().isValid(tValidUrl), true);
+        expect(parser.isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const TwitterParser().isValid(tInvalidUrl),
+          parser.isValid(tInvalidUrl),
           false,
         );
       });
@@ -25,7 +27,7 @@ void main() {
     group('recoverUser', () {
       test('A valid Twitter Url should return the user', () {
         expect(
-          const TwitterParser().recoverUser(tValidUrl),
+          parser.recoverUser(tValidUrl),
           tvalidUsername,
         );
       });
@@ -34,7 +36,7 @@ void main() {
     group('recreateUri', () {
       test('A valid Twitter username should return the tValidUrl', () {
         expect(
-          const TwitterParser().recreateUri(tvalidUsername),
+          parser.recreateUri(tvalidUsername),
           tValidUrl,
         );
       });

@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('LinkedInParser', () {
+    const parser = LinkedInParser();
+
     const tValidUrl = 'https://linkedin.com/in/ABC38_';
     const tInvalidUrl = 'https://linkedincom/ABC38_';
 
@@ -11,12 +13,12 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const LinkedInParser().isValid(tValidUrl), true);
+        expect(parser.isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const LinkedInParser().isValid(tInvalidUrl),
+          parser.isValid(tInvalidUrl),
           false,
         );
       });
@@ -25,7 +27,7 @@ void main() {
     group('recoverUser', () {
       test('A valid LinkedIn Url should return the user', () {
         expect(
-          const LinkedInParser().recoverUser(tValidUrl),
+          parser.recoverUser(tValidUrl),
           tvalidUsername,
         );
       });
@@ -34,7 +36,7 @@ void main() {
     group('recreateUri', () {
       test('A valid LinkedIn username should return the tValidUrl', () {
         expect(
-          const LinkedInParser().recreateUri(tvalidUsername),
+          parser.recreateUri(tvalidUsername),
           tValidUrl,
         );
       });

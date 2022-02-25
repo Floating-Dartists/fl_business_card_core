@@ -21,7 +21,9 @@ jobs:
       run: dart test --coverage="coverage"
     # - name: Exclude generated files from coverage
     #   run: dart pub run remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
-    # - name: Collect and report coverage
-    #   uses: coverallsapp/github-action@v1.1.2
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate Lcov
+      run: dart pub run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.packages --report-on=lib
+    - name: Collect and report coverage
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}

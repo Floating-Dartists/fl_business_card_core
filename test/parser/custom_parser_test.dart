@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('CustomParser', () {
+    const parser = CustomParser();
+
     const tValidUrl = 'https://twitter.com/ABC38_';
     const tInvalidUrl = 'htt.fsdfps://twittercom/status/ABC38_';
 
@@ -11,23 +13,17 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const CustomParser().isValid(tValidUrl), true);
+        expect(parser.isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
-        expect(
-          const CustomParser().isValid(tInvalidUrl),
-          false,
-        );
+        expect(parser.isValid(tInvalidUrl), false);
       });
     });
 
     group('recoverUser', () {
       test('A valid custom URL should return the URL, minus the scheme', () {
-        expect(
-          const CustomParser().recoverUser(tValidUrl),
-          tvalidUsername,
-        );
+        expect(parser.recoverUser(tValidUrl), tvalidUsername);
       });
     });
 
@@ -36,7 +32,7 @@ void main() {
           'A valid custom URL "username" should return the URL, with the sceme',
           () {
         expect(
-          const CustomParser().recreateUri(tvalidUsername),
+          parser.recreateUri(tvalidUsername),
           "https://twitter.com/ABC38_",
         );
       });
