@@ -3,6 +3,7 @@ import 'url_parser.dart';
 class LinkedInParser extends UrlParser {
   const LinkedInParser()
       : super(
+          // coverage:ignore-line
           service: "LinkedIn",
           hosts: const ["linkedin.com", "www.linkedin.com"],
           pathSegments: const ["in", "{user}"],

@@ -7,6 +7,7 @@ class MediumParser extends UrlParser {
   /// to their {user}.medium.com page.
   const MediumParser()
       : super(
+          // coverage:ignore-line
           service: "Medium",
           hosts: const ["medium.com", "{user}.medium.com", "www.medium.com"],
           pathSegments: const ["{user}"],

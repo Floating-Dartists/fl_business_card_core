@@ -3,6 +3,7 @@ import 'url_parser.dart';
 class StackOverflowParser extends UrlParser {
   const StackOverflowParser()
       : super(
+          // coverage:ignore-line
           service: "Stack Overflow",
           hosts: const ["stackoverflow.com", "www.stackoverflow.com"],
           pathSegments: const ["users", "{user}"],
