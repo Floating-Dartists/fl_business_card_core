@@ -117,8 +117,9 @@ abstract class UrlParser extends Equatable {
     if (hosts[0] != "*" && !hosts.contains(uri.host)) {
       /// If it comes to this, we must still account for the case where the
       /// username IS *part* of the host, such as for some Medium users.
-      if (hosts[0].contains("{user}") &&
-          (hosts.length < 2 || !uri.host.contains(hosts[0]))) {
+      if (hosts.length < 2 ||
+          !hosts[1].contains('{user}') ||
+          !uri.host.contains(hosts[0])) {
         return "The host of ${uri.toString()} is not accepted for this service.";
       }
     }
@@ -144,10 +145,7 @@ abstract class UrlParser extends Equatable {
     if (hosts.length >= 2 && hosts[1].contains("{user}")) {
       return uri.host.split(".").first;
     }
-    throw UrlParseException(
-      parseType: service,
-      message: "Couldn't find user in URI",
-    );
+    return uriString;
   }
 
   String recreateUri(String user) {

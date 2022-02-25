@@ -15,10 +15,16 @@ class MockParserB extends UrlParser {
 
 void main() {
   group('UrlParser', () {
-    group('props', () {
-      const tParserA = MockParserA();
-      const tParserB = MockParserA();
+    const tParserA = MockParserA();
+    const tParserB = MockParserA();
 
+    group('isValidUrl', () {
+      test('facebook url parsing should fail', () {
+        expect(tParserA.isValidUrl('https://www.facebook.com/'), isNotNull);
+      });
+    });
+
+    group('props', () {
       test('2 objects with same props are equal', () {
         expect(tParserA.props, equals(tParserB.props));
         expect(tParserA, equals(tParserB));
@@ -26,14 +32,10 @@ void main() {
     });
 
     group('recoverUser', () {
-      const tParser = MockParserA();
       const tUriString = '';
 
       test('throws a UrlParseException if no valid url is found', () {
-        expect(
-          () => tParser.recoverUser(tUriString),
-          throwsA(isA<UrlParseException>()),
-        );
+        expect(tParserA.recoverUser(tUriString), tUriString);
       });
     });
   });
