@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../url_parse_exceptions.dart';
-
 export 'custom_parser.dart';
 export 'github_parser.dart';
 export 'gitlab_parser.dart';

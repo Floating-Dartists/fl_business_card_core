@@ -1,5 +1,4 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart';
-import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 const _tService = 'a';
