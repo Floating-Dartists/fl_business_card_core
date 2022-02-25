@@ -9,7 +9,7 @@ export 'medium_parser.dart';
 export 'stack_overflow_parser.dart';
 export 'twitter_parser.dart';
 
-abstract class UrlParser extends Equatable {
+class UrlParser extends Equatable {
   const UrlParser({
     required this.service,
     this.schemes = const ["https", "http", ""],
