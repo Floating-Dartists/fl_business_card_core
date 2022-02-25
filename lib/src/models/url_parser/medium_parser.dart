@@ -1,5 +1,4 @@
-import '../url_parse_exceptions.dart';
-import '../url_parser.dart';
+import 'url_parser.dart';
 
 class MediumParser extends UrlParser {
   /// Notice : We're not using {user}.medium.com as our main because
@@ -20,12 +19,13 @@ class MediumParser extends UrlParser {
   ///
   /// * It has strictly a single path segment, or none.
   @override
-  String? isValidUrl(Uri uri) {
+  String? isValidUrl(String uriString) {
+    final uri = Uri.parse(uriString);
     final path = uri.pathSegments;
     if (path.length > 1) {
       return "More than one path segment";
     }
-    return super.isValidUrl(uri);
+    return super.isValidUrl(uriString);
   }
 
   /// Overriding the recreateUri method to automatically

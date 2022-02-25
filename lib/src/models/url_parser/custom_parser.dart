@@ -11,14 +11,13 @@ class CustomParser extends UrlParser {
   @override
   String recoverUser(String uriString) {
     try {
-      final uri = Uri.tryParse(uriString);
-      if (uri == null) {
+      if (!isValid(uriString)) {
         throw UrlParseException(
           parseType: service,
           message: "Invalid Custom URL",
         );
       }
-      isValid(uri);
+      final uri = Uri.parse(uriString);
       return "${uri.host}${uri.path}${uri.query}${uri.fragment}";
     } on UrlParseException {
       rethrow;

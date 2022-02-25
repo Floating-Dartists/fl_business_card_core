@@ -12,12 +12,12 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const GitlabParser().isValid(Uri.parse(tValidUrl)), true);
+        expect(const GitlabParser().isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          () => const GitlabParser().isValid(Uri.parse(tInvalidUrl)),
+          () => const GitlabParser().isValid(tInvalidUrl),
           // const CustomParser().isValid(Uri.parse(tInvalidUrl)),
           throwsA(isA<UrlParseException>()),
         );

@@ -1,6 +1,5 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show GithubParser;
-import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,12 +11,12 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const GithubParser().isValid(Uri.parse(tValidUrl)), true);
+        expect(const GithubParser().isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const GithubParser().isValid(Uri.parse(tInvalidUrl)),
+          const GithubParser().isValid(tInvalidUrl),
           false,
         );
       });

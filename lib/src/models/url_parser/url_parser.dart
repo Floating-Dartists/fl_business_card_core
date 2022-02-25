@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'url_parse_exceptions.dart';
+import '../url_parse_exceptions.dart';
 
-export 'url_parser/custom_parser.dart';
-export 'url_parser/github_parser.dart';
-export 'url_parser/gitlab_parser.dart';
-export 'url_parser/linkedin_parser.dart';
-export 'url_parser/medium_parser.dart';
-export 'url_parser/stack_overflow_parser.dart';
-export 'url_parser/twitter_parser.dart';
+export 'custom_parser.dart';
+export 'github_parser.dart';
+export 'gitlab_parser.dart';
+export 'linkedin_parser.dart';
+export 'medium_parser.dart';
+export 'stack_overflow_parser.dart';
+export 'twitter_parser.dart';
 
 abstract class UrlParser extends Equatable {
   const UrlParser({
@@ -103,10 +103,14 @@ abstract class UrlParser extends Equatable {
     //     .map((key, value) => MapEntry(key, value.replaceAll('{user}', user)));
   }
 
-  bool isValid(Uri uri) => isValidUrl(uri) == null;
+  bool isValid(String uriString) => isValidUrl(uriString) == null;
 
   @mustCallSuper
-  String? isValidUrl(Uri uri) {
+  String? isValidUrl(String uriString) {
+    final uri = Uri.tryParse(uriString);
+    if (uri == null) {
+      return 'Invalid URL';
+    }
     if (!schemes.contains(uri.scheme)) {
       return "The scheme of ${uri.toString()} is not accepted for this service.";
     }
@@ -122,10 +126,10 @@ abstract class UrlParser extends Equatable {
   }
 
   String recoverUser(String uriString) {
-    final uri = Uri.tryParse(uriString);
-    if (uri == null || !isValid(uri)) {
+    if (!isValid(uriString)) {
       return uriString;
     }
+    final uri = Uri.parse(uriString);
     final indexInPathSegment =
         pathSegments.indexWhere((element) => element == '{user}');
     if (indexInPathSegment != -1 &&

@@ -1,6 +1,5 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show TwitterParser;
-import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,12 +11,12 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const TwitterParser().isValid(Uri.parse(tValidUrl)), true);
+        expect(const TwitterParser().isValid(tValidUrl), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const TwitterParser().isValid(Uri.parse(tInvalidUrl)),
+          const TwitterParser().isValid(tInvalidUrl),
           false,
         );
       });

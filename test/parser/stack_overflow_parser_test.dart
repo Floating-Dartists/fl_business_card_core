@@ -1,6 +1,5 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show StackOverflowParser;
-import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,17 +11,19 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const StackOverflowParser().isValid(Uri.parse(tValidUrl)), true);
+        expect(const StackOverflowParser().isValid(tValidUrl), true);
       });
 
       test('A valid URL should return true', () {
         expect(
-            const StackOverflowParser().isValid(Uri.parse(tValidUrl2)), true);
+          const StackOverflowParser().isValid(tValidUrl2),
+          true,
+        );
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const StackOverflowParser().isValid(Uri.parse(tInvalidUrl)),
+          const StackOverflowParser().isValid(tInvalidUrl),
           false,
         );
       });

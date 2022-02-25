@@ -1,6 +1,5 @@
 import 'package:fl_business_card_core/fl_business_card_core.dart'
     show MediumParser;
-import 'package:fl_business_card_core/src/models/url_parse_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,16 +12,16 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const MediumParser().isValid(Uri.parse(tValidUrl)), true);
+        expect(const MediumParser().isValid(tValidUrl), true);
       });
 
       test('A valid URL should return true', () {
-        expect(const MediumParser().isValid(Uri.parse(tValidUrl2)), true);
+        expect(const MediumParser().isValid(tValidUrl2), true);
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const MediumParser().isValid(Uri.parse(tInvalidUrl)),
+          const MediumParser().isValid(tInvalidUrl),
           false,
         );
       });

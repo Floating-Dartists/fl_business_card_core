@@ -1,5 +1,4 @@
-import '../url_parse_exceptions.dart';
-import '../url_parser.dart';
+import 'url_parser.dart';
 
 class TwitterParser extends UrlParser {
   const TwitterParser()
@@ -16,11 +15,12 @@ class TwitterParser extends UrlParser {
   ///
   /// * It has strictly a single path segment (which is the Twitter Username).
   @override
-  String? isValidUrl(Uri uri) {
+  String? isValidUrl(String uriString) {
+    final uri = Uri.parse(uriString);
     final path = uri.pathSegments;
     if (path.length != 1) {
       return "More than one path segment";
     }
-    return super.isValidUrl(uri);
+    return super.isValidUrl(uriString);
   }
 }
