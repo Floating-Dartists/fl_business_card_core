@@ -21,7 +21,7 @@ void main() {
         expect(parser.isValid(tValidUrl2), true);
       });
 
-      test('An invalid URL should throw a ParseException', () {
+      test('An invalid URL should return false', () {
         expect(
           parser.isValid(tInvalidUrl),
           false,
