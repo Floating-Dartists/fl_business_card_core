@@ -18,9 +18,9 @@ jobs:
       run: dart analyze
       working-directory: ./lib
     - name: Test
-      run: dart test --coverage
-    - name: Exclude generated files from coverage
-      run: dart pub run remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
+      run: dart test --coverage="coverage"
+    # - name: Exclude generated files from coverage
+    #   run: dart pub run remove_from_coverage -f coverage/lcov.info -r '\.g\.dart$'
     # - name: Collect and report coverage
     #   uses: coverallsapp/github-action@v1.1.2
     #   with:
