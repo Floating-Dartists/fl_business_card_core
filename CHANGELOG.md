@@ -1,3 +1,12 @@
-## 0.0.1
+## 0.1.0
 
-* TODO: Describe initial release.
+* Initial release
+* Added `UrlParser` abstract class
+* Added `CustomParser`
+* Added `GithubParser`
+* Added `GitlabParser`
+* Added `LinkedInParser`
+* Added `MediumParser`
+* Added `StackOverflowParser`
+* Added `TwitterParser`
+* Added `GlobalParser`

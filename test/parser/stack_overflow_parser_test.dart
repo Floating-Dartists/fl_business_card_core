@@ -11,6 +11,27 @@ void main() {
     const tInvalidUrl = 'https://stackoverflow.com/13923049';
     const tvalidUsername = "13923049";
 
+    group('super constructor', () {
+      test('should return a valid instance', () {
+        expect(parser, isNotNull);
+      });
+
+      test('should return a valid instance', () {
+        expect(parser, isA<StackOverflowParser>());
+      });
+
+      test('should contain the right parameters', () {
+        expect(parser.service, 'Stack Overflow');
+        expect(
+          parser.hosts,
+          const ["stackoverflow.com", "www.stackoverflow.com"],
+        );
+        expect(parser.schemes, const ["https", "http", ""]);
+        expect(parser.pathSegments, const ["users", "{user}"]);
+        expect(parser.queryParameters, const {});
+      });
+    });
+
     group('isValid', () {
       test('A valid URL should return true', () {
         expect(parser.isValid(tValidUrl), true);
@@ -23,7 +44,7 @@ void main() {
         );
       });
 
-      test('An invalid URL should throw a ParseException', () {
+      test('An invalid URL should return false', () {
         expect(
           parser.isValid(tInvalidUrl),
           false,

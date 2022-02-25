@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../url_parse_exceptions.dart';
-
 export 'custom_parser.dart';
 export 'github_parser.dart';
 export 'gitlab_parser.dart';
@@ -92,7 +90,7 @@ abstract class UrlParser extends Equatable {
   }
 
   Map<String, String> replaceUserInQueryParameters(String user) {
-    final replacedQueryParameters = queryParameters;
+    final replacedQueryParameters = queryParameters.map(MapEntry.new);
     for (int i = 0; i < replacedQueryParameters.length; i++) {
       replacedQueryParameters[replacedQueryParameters.keys.elementAt(i)] =
           replacedQueryParameters[replacedQueryParameters.keys.elementAt(i)]!
@@ -117,8 +115,9 @@ abstract class UrlParser extends Equatable {
     if (hosts[0] != "*" && !hosts.contains(uri.host)) {
       /// If it comes to this, we must still account for the case where the
       /// username IS *part* of the host, such as for some Medium users.
-      if (hosts[0].contains("{user}") &&
-          (hosts.length < 2 || !uri.host.contains(hosts[0]))) {
+      if (hosts.length < 2 ||
+          !hosts[1].contains('{user}') ||
+          !uri.host.contains(hosts[0])) {
         return "The host of ${uri.toString()} is not accepted for this service.";
       }
     }
@@ -144,10 +143,7 @@ abstract class UrlParser extends Equatable {
     if (hosts.length >= 2 && hosts[1].contains("{user}")) {
       return uri.host.split(".").first;
     }
-    throw UrlParseException(
-      parseType: service,
-      message: "Couldn't find user in URI",
-    );
+    return uriString;
   }
 
   String recreateUri(String user) {

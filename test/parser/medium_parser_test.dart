@@ -12,6 +12,27 @@ void main() {
     const tvalidUsername = "rouxguillaume";
     const tvalidUsername2 = "@rouxguillaume";
 
+    group('super constructor', () {
+      test('should return a valid instance', () {
+        expect(parser, isNotNull);
+      });
+
+      test('should return a valid instance', () {
+        expect(parser, isA<MediumParser>());
+      });
+
+      test('should contain the right parameters', () {
+        expect(parser.service, "Medium");
+        expect(
+          parser.hosts,
+          const ["medium.com", "{user}.medium.com", "www.medium.com"],
+        );
+        expect(parser.schemes, const ["https", "http", ""]);
+        expect(parser.pathSegments, const ["{user}"]);
+        expect(parser.queryParameters, const {});
+      });
+    });
+
     group('isValid', () {
       test('A valid URL should return true', () {
         expect(parser.isValid(tValidUrl), true);
@@ -21,7 +42,7 @@ void main() {
         expect(parser.isValid(tValidUrl2), true);
       });
 
-      test('An invalid URL should throw a ParseException', () {
+      test('An invalid URL should return false', () {
         expect(
           parser.isValid(tInvalidUrl),
           false,

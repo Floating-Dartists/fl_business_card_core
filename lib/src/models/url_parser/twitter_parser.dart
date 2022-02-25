@@ -2,7 +2,9 @@ import 'url_parser.dart';
 
 class TwitterParser extends UrlParser {
   const TwitterParser()
+      // coverage:ignore-start
       : super(
+          // coverage:ignore-end
           service: "Twitter",
           hosts: const ["twitter.com", "www.twitter.com"],
           pathSegments: const ["{user}"],
