@@ -105,18 +105,18 @@ abstract class UrlParser extends Equatable {
 
   @mustCallSuper
   bool isValid(Uri uri) {
-    if (schemes[0] != "*" && !schemes.contains(uri.scheme)) {
+    if (!schemes.contains(uri.scheme)) {
       throw ParseException(
         parseType: service,
         message:
             "The scheme of ${uri.toString()} is not accepted for this service.",
       );
     }
-    if (!hosts.contains(uri.host)) {
+    if (hosts[0] != "*" && !hosts.contains(uri.host)) {
       /// If it comes to this, we must still account for the case where the
       /// username IS *part* of the host, such as for some Medium users.
       if (hosts[0].contains("{user}") &&
-          (hosts.length < 2 || !uri.host.contains(hosts[1]))) {
+          (hosts.length < 2 || !uri.host.contains(hosts[0]))) {
         throw ParseException(
           parseType: service,
           message:
