@@ -11,6 +11,27 @@ void main() {
 
     const tvalidUsername = "twitter.com/ABC38_";
 
+    group('super constructor', () {
+      test('should return a valid instance', () {
+        expect(parser, isNotNull);
+      });
+
+      test('should return a valid instance', () {
+        expect(parser, isA<CustomParser>());
+      });
+
+      test('should contain the right parameters', () {
+        expect(parser.service, "Custom");
+        expect(
+          parser.hosts,
+          const ["*"],
+        );
+        expect(parser.schemes, const ["https", "http", ""]);
+        expect(parser.pathSegments, const []);
+        expect(parser.queryParameters, const {});
+      });
+    });
+
     group('isValid', () {
       test('A valid URL should return true', () {
         expect(parser.isValid(tValidUrl), true);

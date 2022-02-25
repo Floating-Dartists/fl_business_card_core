@@ -11,6 +11,27 @@ void main() {
 
     const tvalidUsername = "ABC38_";
 
+    group('super constructor', () {
+      test('should return a valid instance', () {
+        expect(parser, isNotNull);
+      });
+
+      test('should return a valid instance', () {
+        expect(parser, isA<GithubParser>());
+      });
+
+      test('should contain the right parameters', () {
+        expect(parser.service, "GitHub");
+        expect(
+          parser.hosts,
+          const ["github.com", "www.github.com"],
+        );
+        expect(parser.schemes, const ["https", "http", ""]);
+        expect(parser.pathSegments, const ["{user}"]);
+        expect(parser.queryParameters, const {});
+      });
+    });
+
     group('isValid', () {
       test('A valid URL should return true', () {
         expect(parser.isValid(tValidUrl), true);
