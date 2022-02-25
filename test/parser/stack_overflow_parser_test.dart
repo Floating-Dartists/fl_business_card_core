@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('StackOverflowParser', () {
+    const parser = StackOverflowParser();
+
     const tValidUrl = 'https://stackoverflow.com/users/13923049/me%c3%af-m';
     const tValidUrl2 = 'https://stackoverflow.com/users/13923049';
     const tInvalidUrl = 'https://stackoverflow.com/13923049';
@@ -11,19 +13,19 @@ void main() {
 
     group('isValid', () {
       test('A valid URL should return true', () {
-        expect(const StackOverflowParser().isValid(tValidUrl), true);
+        expect(parser.isValid(tValidUrl), true);
       });
 
       test('A valid URL should return true', () {
         expect(
-          const StackOverflowParser().isValid(tValidUrl2),
+          parser.isValid(tValidUrl2),
           true,
         );
       });
 
       test('An invalid URL should throw a ParseException', () {
         expect(
-          const StackOverflowParser().isValid(tInvalidUrl),
+          parser.isValid(tInvalidUrl),
           false,
         );
       });
@@ -32,14 +34,14 @@ void main() {
     group('recoverUser', () {
       test('A valid StackOverflow Url should return the user', () {
         expect(
-          const StackOverflowParser().recoverUser(tValidUrl),
+          parser.recoverUser(tValidUrl),
           tvalidUsername,
         );
       });
 
       test('A valid StackOverflow Url should return the user', () {
         expect(
-          const StackOverflowParser().recoverUser(tValidUrl2),
+          parser.recoverUser(tValidUrl2),
           tvalidUsername,
         );
       });
@@ -48,7 +50,7 @@ void main() {
     group('recreateUri', () {
       test('A valid StackOverflow username should return the tValidUrl', () {
         expect(
-          const StackOverflowParser().recreateUri(tvalidUsername),
+          parser.recreateUri(tvalidUsername),
           tValidUrl2,
         );
       });
