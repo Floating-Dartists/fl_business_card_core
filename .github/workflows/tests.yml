@@ -2,7 +2,7 @@ name: Test workflow
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, dev, tests_coverage ]
   pull_request:
     branches: [ main, dev ]
 
