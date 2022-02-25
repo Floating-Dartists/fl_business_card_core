@@ -4,6 +4,7 @@ import '../url_parse_exceptions.dart';
 class CustomParser extends UrlParser {
   const CustomParser()
       : super(
+          // coverage:ignore-line
           service: "Custom",
           hosts: const ["*"],
         );
