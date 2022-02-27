@@ -13,18 +13,19 @@ class UrlGenerator extends Equatable {
 
   const UrlGenerator._({required this.queryKey, required this.urlParser});
 
-  factory UrlGenerator.customUrl({
-    required String queryKey,
-  }) =>
-      UrlGenerator._(
-        queryKey: queryKey,
-        urlParser: const CustomParser(),
-      );
+  factory UrlGenerator.fromUrl(String url, {UrlGenerator Function()? orElse}) {
+    final parser = GlobalParser.getParser(url);
+    if (parser == null) {
+      if (orElse != null) {
+        return orElse();
+      }
+      throw ArgumentError('No parser found for $url');
+    }
+    return UrlGenerator.fromParser(parser);
+  }
 
-  factory UrlGenerator.fromParser(UrlParser parser) => _kGenerators.firstWhere(
-        (e) => e.urlParser == parser,
-        orElse: () => UrlGenerator.customUrl(queryKey: 'c'),
-      );
+  factory UrlGenerator.fromParser(UrlParser parser) =>
+      _kGenerators.firstWhere((e) => e.urlParser == parser);
 
   static const github = UrlGenerator._(
     queryKey: 'gh',
