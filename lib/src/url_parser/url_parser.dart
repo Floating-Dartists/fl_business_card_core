@@ -124,21 +124,24 @@ abstract class UrlParser extends Equatable {
     return null;
   }
 
+  /// Return the user data extracted from [uriString].
+  ///
+  /// If [uriString] is invalid or the user data is not found, return
+  /// [uriString].
   String recoverUser(String uriString) {
     if (!isValid(uriString)) {
       return uriString;
     }
     final uri = Uri.parse(uriString);
-    final indexInPathSegment =
-        pathSegments.indexWhere((element) => element == '{user}');
+    final indexInPathSegment = pathSegments.indexWhere((e) => e == '{user}');
     if (indexInPathSegment != -1 &&
         uri.pathSegments.length > indexInPathSegment) {
       return uri.pathSegments[indexInPathSegment];
     }
     final indexInQuery = List<String>.from(queryParameters.values)
-        .indexWhere((element) => element == '{user}');
+        .indexWhere((e) => e == '{user}');
     if (indexInQuery != -1 && uri.queryParameters.length > indexInQuery) {
-      return uri.queryParameters.values.toList()[indexInQuery];
+      return uri.queryParameters.values.elementAt(indexInQuery);
     }
     if (hosts.length >= 2 && hosts[1].contains("{user}")) {
       return uri.host.split(".").first;
@@ -146,6 +149,7 @@ abstract class UrlParser extends Equatable {
     return uriString;
   }
 
+  /// Creates a new URI from the given [user] and return it as a [String].
   String recreateUri(String user) {
     final uri = Uri(
       scheme: schemes.first,

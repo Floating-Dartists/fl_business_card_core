@@ -9,7 +9,7 @@ void main() {
     const tValidUrl = 'https://github.com/ABC38_';
     const tInvalidUrl = 'https://githubcom/status/ABC38_';
 
-    const tvalidUsername = "ABC38_";
+    const tValidUsername = "ABC38_";
 
     group('super constructor', () {
       test('should return a valid instance', () {
@@ -49,7 +49,7 @@ void main() {
       test('A valid Github Url should return the user', () {
         expect(
           parser.recoverUser(tValidUrl),
-          tvalidUsername,
+          tValidUsername,
         );
       });
     });
@@ -57,7 +57,7 @@ void main() {
     group('recreateUri', () {
       test('A valid Github username should return the tValidUrl', () {
         expect(
-          parser.recreateUri(tvalidUsername),
+          parser.recreateUri(tValidUsername),
           tValidUrl,
         );
       });
