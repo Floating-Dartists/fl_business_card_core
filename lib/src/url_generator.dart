@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../fl_business_card_core.dart';
+import 'models/url_query_entry.dart';
 
 const _kGenerators = <UrlGenerator>[
   UrlGenerator.github,
@@ -21,11 +22,14 @@ class UrlGenerator extends Equatable {
       }
       throw ArgumentError('No parser found for $url');
     }
-    return UrlGenerator.fromParser(parser);
+    return UrlGenerator.fromParser(parser, orElse: orElse);
   }
 
-  factory UrlGenerator.fromParser(UrlParser parser) =>
-      _kGenerators.firstWhere((e) => e.urlParser == parser);
+  factory UrlGenerator.fromParser(
+    UrlParser parser, {
+    UrlGenerator Function()? orElse,
+  }) =>
+      _kGenerators.firstWhere((e) => e.urlParser == parser, orElse: orElse);
 
   static const github = UrlGenerator._(
     queryKey: 'gh',
@@ -38,6 +42,11 @@ class UrlGenerator extends Equatable {
   );
 
   // other generators can be added here...
+
+  UrlQueryEntry getQueryEntry(String url) => UrlQueryEntry(
+        key: queryKey,
+        value: urlParser.recoverUser(url),
+      );
 
   @override
   List<Object?> get props => [queryKey, urlParser];
